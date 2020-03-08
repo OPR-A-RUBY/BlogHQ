@@ -3,8 +3,7 @@ class CreatePostme < ActiveRecord::Migration[6.0]
   	create_table :Postmes do |t|
   		t.text :content
   		t.text :autor
-
   		t.timestamps
-  	end	
+  	end
   end
 end

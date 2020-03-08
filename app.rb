@@ -9,6 +9,9 @@ set :database, 'sqlite3:posts.db'
 class Postme < ActiveRecord::Base
 end
 
+class Message < ActiveRecord::Base
+end
+
 get '/' do
     erb "Hello Opr"
 end

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_110607) do
+ActiveRecord::Schema.define(version: 2020_03_08_112836) do
+
+  create_table "Messages", force: :cascade do |t|
+    t.text "context"
+    t.text "autor"
+    t.text "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "Postmes", force: :cascade do |t|
     t.text "content"

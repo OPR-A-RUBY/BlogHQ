@@ -1,6 +1,7 @@
 *.gem
 *.rbc
-./posts.bd
+posts.db
+.gitignore
 /.config
 /coverage/
 /InstalledFiles
