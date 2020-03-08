@@ -1,1 +1,19 @@
-It's "New post" page.
+<!-- Это форма newpost.erb -->
+<h2>Создаём новое сообщение</h2>
+<p>
+	<!-- <img src="/image.jpg" alt="" class="img-thumbnail"> -->
+
+	<form action="/newpost" method="POST" >
+
+		<div class="form-group">
+	    	<label for="exampleInputName2">Ваше имя:</label>
+	    	<input name="postme[autor]" type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+	  	</div>
+			
+		<textarea name="postme[content]" class="form-control" rows="6" placeholder="Type post text here"></textarea>
+		
+		<br /> 	
+	   	<button type="submit" class="btn btn-primary"><b>Submit</b></button>
+
+	</form>
+</p>
