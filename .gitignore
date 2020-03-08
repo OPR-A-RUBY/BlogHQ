@@ -1,5 +1,6 @@
 *.gem
 *.rbc
+./posts.bd
 /.config
 /coverage/
 /InstalledFiles

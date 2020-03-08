@@ -4,6 +4,10 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 
+set :database, 'sqlite3:posts.db'
+
+
+
 get '/' do
     erb "Hello Opr"
 end
