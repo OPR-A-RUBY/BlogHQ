@@ -12,6 +12,10 @@ end
 class Message < ActiveRecord::Base
 end
 
+before do
+	@post_all = Postme.all
+end
+
 get '/' do
     erb :postsview
 end

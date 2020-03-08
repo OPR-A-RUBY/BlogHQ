@@ -1,1 +1,8 @@
 It's postview.erb page.
+<h2></h2>
+<p>
+	<% @post_all.each do |p| %>
+		<%= p.autor %>
+		<%= p.content %>
+	<% end %>
+</p>
