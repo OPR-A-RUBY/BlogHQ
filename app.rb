@@ -64,25 +64,30 @@ get '/comm/:post_id' do
 	# Запрашиваем из БД ту запись, у которой id = номеру, полученному из postview.erb 
 	# через url (см. выше)
 	@main_post = Postme.find(post_id_var)
-
+	#@all_coments_to_main_post = Message.where("post_id = :post_id")
+	@all_coments_to_main_post = Message.all
 	erb :comments
 end
 
 post '/comm/:post_id' do
-	
-	post_id_var = params[:post_id]
-	@main_post = Postme.find(post_id_var)
+
+	# post_id_var = params[:post_id]
+	# @main_post = Postme.find(post_id_var)
+	@main_post = Postme.find(params[:post_id])
 
 	@mes = Message.new params[:message]
-	if @mes.save
- 		erb "Спасибо, Ваш коментарий записан."
-	else
-		@error = @c.errors.full_messages.first
+	@mes.post_id = @main_post.id
+
+	if !@mes.save
+ 		@error = @c.errors.full_messages.first
 	    erb :comments
 	end 
 
-	erb :comments
-	
+	# @all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
+
+	@all_coments_to_main_post = Message.all
+
+	erb :comments	
 end
 
 get '/contacts' do
