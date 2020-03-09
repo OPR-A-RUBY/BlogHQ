@@ -40,13 +40,11 @@
     	</thead>
     	<tbody>
     	<% @all_coments_to_main_post.each do |message_item| %>
-<!--     		<% if (message_item.post_id.to_i == @main_post.id) then %>
- -->    			<tr>
+    			<tr>
 		    		<td><%= message_item.autor %></td>
 		    		<td><%= message_item.content %></td>
 		    		<td><%= message_item.created_at %></td>
 	    		</tr>
-<!--     		<% end %> -->
     	<% end %>			
     	</tbody>
 	</table>			

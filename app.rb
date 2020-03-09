@@ -7,29 +7,33 @@ require 'sinatra/activerecord'
 set :database, 'sqlite3:posts.db'
 
 class Postme < ActiveRecord::Base
+	validates :content, presence: true, length: { minimum: 5 } 
+	validates :autor, presence: true 	
 end
 
 class Message < ActiveRecord::Base
+	validates :content, presence: true, length: { minimum: 5 } 
+	validates :autor, presence: true 
 end
 
 before do
 	@post_all = Postme.order(:id).reverse_order
 end
 
-get '/' do
+get '/' do			# ---------------- / M A I N --------------------------------
     erb :index
 end
 
-get '/posts' do
+get '/posts' do		# ---------------- / P O S T S ------------------------------
     erb :postsview
 end
 
-get '/newpost' do
+get '/newpost' do	# ---------------- / N E W P O S T S ------------------------
 	@pos = Postme.new
 	erb :newpost
 end
 
-post '/newpost' do
+post '/newpost' do	# ---------------- / N E W P O S T S ------------------POST--
 
   	@pos = Postme.new params[:postme]		# Создать новый пост, у которого будут 
   										    # параметы как у объекта postme.
@@ -43,17 +47,18 @@ post '/newpost' do
 
 	else
 
-		@error = @c.errors.full_messages.first
+		@error = @pos.errors.full_messages.first
 	    erb :newpost
 	 
 	end 
 end
 
-get '/comm/:post_id' do
-	# И так, мы имеем url, переданный из postview.erb при нажати кнопки 'Ответить'
-	# причём, после последнего слеша уазано слово (здесь у нас это цыфра, id записи), 
+get '/comm/:post_id' do	# ---------------- / C O M / ... ------------------------
+	# И так, мы имеем url, переданный из postview.erb при нажати кнопки 'Коментарий'
+	# причём, после последнего слеша уазано слово (здесь у нас это цыфра = id записи), 
 	# полученное из конкретной записи, в которой находилась нажатая гномом ссылка  
-	# в отображении postview.erb
+	# в отображении postview.erb 
+	# Таких ссылок мого они похожи друг на друга, но каждая имеет свой уникальный url
 
 	# Эту важную для нас цыфру мы выделим из всего url через параметр :post_id
 	# выраженное здесь как символ. 
@@ -64,39 +69,30 @@ get '/comm/:post_id' do
 	# Запрашиваем из БД ту запись, у которой id = номеру, полученному из postview.erb 
 	# через url (см. выше)
 	@main_post = Postme.find(post_id_var)
+	# эти две строки преобразованы в одну в методе ost '/comm/:post_id' см ниже (м1)
 
 	# ВАРИАНИ_1 Нагрузка на сервер = получаем только нужные записи
 	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
 	# и в браузере останется только вывести их все в таблицу
-	
-	# ВАРИАНТ_2 Нагрузка на браузер = все записи из БД (таблица message)
-	# @all_coments_to_main_post = Message.all
-	# а в браузере перебираем их и выводим только нужные
 
 	erb :comments
 end
 
-post '/comm/:post_id' do
+post '/comm/:post_id' do	# ---------------- / C O M / ... ---------------POST-----
 
-	# post_id_var = params[:post_id]
-	# @main_post = Postme.find(post_id_var)
-	@main_post = Postme.find(params[:post_id])
+	@main_post = Postme.find(params[:post_id])  # Об этом написано выше (м1)
 
 	@mes = Message.new params[:message]
 	@mes.post_id = @main_post.id
 
 	if !@mes.save
- 		@error = @c.errors.full_messages.first
-	    erb :comments
+ 		@error = @mes.errors.full_messages.first
+	    
 	end 
 
 	# ВАРИАНТ_1 Нагрузка на сервер = получаем только нужные записи
 	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
 	# и в браузере останется только вывести их все в таблицу
-
-	# ВАРИАНТ_2 Нагрузка на браузер = все записи из БД (таблица message)
- 	# @all_coments_to_main_post = Message.all
- 	# а в браузере перебираем их и выводим только нужные
 
 	erb :comments	
 end
