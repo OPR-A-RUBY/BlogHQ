@@ -2,7 +2,14 @@ It's postview.erb page.
 <h2></h2>
 <p>
 	<% @post_all.each do |p| %>
-		<%= p.autor %>
-		<%= p.content %>
+		<dl class="dl-horizontal" >
+  			<dt>
+  				<%= p.autor %>
+  			</dt>
+  			<dd>
+  				<p><%= p.content %></p>
+  				<p><b><%= p.created_at %></b></p>
+  			</dd>
+		</dl>
 	<% end %>
 </p>

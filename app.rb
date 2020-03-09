@@ -13,7 +13,7 @@ class Message < ActiveRecord::Base
 end
 
 before do
-	@post_all = Postme.all
+	@post_all = Postme.order(:id).reverse_order
 end
 
 get '/' do
