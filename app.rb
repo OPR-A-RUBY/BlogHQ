@@ -85,12 +85,14 @@ post '/comm/:post_id' do	# ---------------- / C O M / ... ---------------POST---
 	@main_post = Postme.find(params[:post_id])
 									# Об этом написано выше (м1)
 
-	@mes = Message.new params[:message]
-	@mes.post_id = @main_post.id
+	@mes = Message.new params[:message]	# Создаём объект, дааные внести с формы
+	@mes.post_id = @main_post.id 	# Добавляем недостающий параметр post_id из
+	# сообщения, которое выбрано для создания кометария к нему 
 
-	if !@mes.save
+	if !@mes.save		# Внести данные в БД с проверкой (validates) см. в верху
  		@error = @mes.errors.full_messages.first
-	    
+		# если валидация даёт ошибку - сосздать переменную ошибки и внести в неё
+		# первое сообщение из всех имеющихся после валидации.	    
 	end 
 
 	# ВАРИАНТ_1 Нагрузка на сервер = получаем только нужные записи
