@@ -68,6 +68,23 @@ get '/comm/:post_id' do
 	erb :comments
 end
 
+post '/comm/:post_id' do
+	
+	post_id_var = params[:post_id]
+	@main_post = Postme.find(post_id_var)
+
+	@mes = Message.new params[:message]
+	if @mes.save
+ 		erb "Спасибо, Ваш коментарий записан."
+	else
+		@error = @c.errors.full_messages.first
+	    erb :comments
+	end 
+
+	erb :comments
+	
+end
+
 get '/contacts' do
     erb :contacts
 end

@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_03_08_112836) do
 
   create_table "Messages", force: :cascade do |t|
-    t.text "context"
+    t.text "content"
     t.text "autor"
     t.text "post_id"
     t.datetime "created_at", precision: 6, null: false
