@@ -17,6 +17,10 @@ before do
 end
 
 get '/' do
+    erb :index
+end
+
+get '/posts' do
     erb :postsview
 end
 
@@ -62,4 +66,8 @@ get '/comm/:post_id' do
 	@main_post = Postme.find(post_id_var)
 
 	erb :comments
+end
+
+get '/contacts' do
+    erb :contacts
 end

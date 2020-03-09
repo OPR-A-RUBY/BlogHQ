@@ -10,3 +10,20 @@
 		</dd>
 		<hr />
 </dl>
+
+
+<h3>Ваш коментарий к сообщению: </h3>
+
+<form action="/comm/<%= @main_post.id %>" method="POST" >
+
+	<div class="form-group">
+    	<label for="exampleInputName2">Ваше имя:</label>
+    	<input name="message[autor]" type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+  	</div>
+		
+	<textarea name="message[content]" class="form-control" rows="6" placeholder="Вводите Ваш текст коментария к сообщению здесь"></textarea>
+	
+	<br /> 	
+   	<button type="submit" class="btn btn-primary"><b>Отправить коментарий</b></button>
+
+</form>
