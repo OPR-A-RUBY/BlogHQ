@@ -59,7 +59,7 @@ get '/comm/:post_id' do
 
 	# Запрашиваем из БД ту запись, у которой id = номеру, полученному из postview.erb 
 	# через url (см. выше)
-	main_post = Postme.where('id=post_id_var')
-	
-	erb "OPR: It is Page for create commet ..."
+	@main_post = Postme.find(post_id_var)
+
+	erb :comments
 end
