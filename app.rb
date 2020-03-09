@@ -102,6 +102,10 @@ post '/comm/:post_id' do	# ---------------- / C O M / ... ---------------POST---
 	erb :comments	
 end
 
-get '/contacts' do
+get '/contacts' do	# ---------------- / C O N T A C T S ------------------------
     erb :contacts
+end
+
+post '/contacts' do	# ---------------- / C O N T A C T S -----------------POST---
+    erb "<b>OPR:</b> It is page of /contacts for runing post-method"
 end
