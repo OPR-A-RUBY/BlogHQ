@@ -64,8 +64,15 @@ get '/comm/:post_id' do
 	# Запрашиваем из БД ту запись, у которой id = номеру, полученному из postview.erb 
 	# через url (см. выше)
 	@main_post = Postme.find(post_id_var)
-	#@all_coments_to_main_post = Message.where("post_id = :post_id")
-	@all_coments_to_main_post = Message.all
+
+	# ВАРИАНИ_1 Нагрузка на сервер = получаем только нужные записи
+	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
+	# и в браузере останется только вывести их все в таблицу
+	
+	# ВАРИАНТ_2 Нагрузка на браузер = все записи из БД (таблица message)
+	# @all_coments_to_main_post = Message.all
+	# а в браузере перебираем их и выводим только нужные
+
 	erb :comments
 end
 
@@ -83,9 +90,13 @@ post '/comm/:post_id' do
 	    erb :comments
 	end 
 
-	# @all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
+	# ВАРИАНТ_1 Нагрузка на сервер = получаем только нужные записи
+	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
+	# и в браузере останется только вывести их все в таблицу
 
-	@all_coments_to_main_post = Message.all
+	# ВАРИАНТ_2 Нагрузка на браузер = все записи из БД (таблица message)
+ 	# @all_coments_to_main_post = Message.all
+ 	# а в браузере перебираем их и выводим только нужные
 
 	erb :comments	
 end

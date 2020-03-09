@@ -31,6 +31,7 @@
 <br />
 
 <div>
+	<%= @all_coments_to_main_post.size %>
 	<table class="table">
 		<thead>
 	    	<th>Автор</th>
@@ -39,13 +40,13 @@
     	</thead>
     	<tbody>
     	<% @all_coments_to_main_post.each do |message_item| %>
-    		<% if (message_item.post_id.to_i == @main_post.id) then %>
-    			<tr>
+<!--     		<% if (message_item.post_id.to_i == @main_post.id) then %>
+ -->    			<tr>
 		    		<td><%= message_item.autor %></td>
 		    		<td><%= message_item.content %></td>
 		    		<td><%= message_item.created_at %></td>
 	    		</tr>
-    		<% end %>
+<!--     		<% end %> -->
     	<% end %>			
     	</tbody>
 	</table>			
