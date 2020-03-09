@@ -41,6 +41,25 @@ post '/newpost' do
 
 		@error = @c.errors.full_messages.first
 	    erb :newpost
-	
+	 
 	end 
+end
+
+get '/comm/:post_id' do
+	# И так, мы имеем url, переданный из postview.erb при нажати кнопки 'Ответить'
+	# причём, после последнего слеша уазано слово (здесь у нас это цыфра, id записи), 
+	# полученное из конкретной записи, в которой находилась нажатая гномом ссылка  
+	# в отображении postview.erb
+
+	# Эту важную для нас цыфру мы выделим из всего url через параметр :post_id
+	# выраженное здесь как символ. 
+
+	# Параметр из url-строки (post_id) присваиваем переменной внутри этоого метода
+	post_id_var = params[:post_id]
+
+	# Запрашиваем из БД ту запись, у которой id = номеру, полученному из postview.erb 
+	# через url (см. выше)
+	main_post = Postme.where('id=post_id_var')
+	
+	erb "OPR: It is Page for create commet ..."
 end
