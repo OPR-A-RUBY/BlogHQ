@@ -24,6 +24,7 @@ end
 
 before do
 	@post_all = Postme.order(:id).reverse_order
+
 end
 
 get '/' do			# ---------------- / M A I N --------------------------------
@@ -31,6 +32,15 @@ get '/' do			# ---------------- / M A I N --------------------------------
 end
 
 get '/posts' do		# ---------------- / P O S T S ------------------------------
+    max_post = 2
+    @mes_by = []
+    0.upto(max_post) do |item|
+    	colvo = 0 
+    	Message.all.each do |message_item|
+    		colvo += 1 if message_item.post_id.to_i == item 
+    	end
+    	@mes_by << colvo
+    end	
     erb :postsview
 end
 
@@ -115,6 +125,7 @@ post '/contacts' do	# ---------------- / C O N T A C T S -----------------POST--
 	@let = Letter.new params[:letter]	# Создаём объект, даные внести с формы
 	@let.old    = '0'		# Письмо не старое
 	@let.ansver = '0'		# Ответа на него небыло
+
 	if !@let.save		# Внести данные в БД с проверкой (validates) см. в верху
  		@error = @let.errors.full_messages.first
 		# если валидация даёт ошибку - сосздать переменную ошибки и внести в неё
