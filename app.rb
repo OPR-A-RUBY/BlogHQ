@@ -13,7 +13,8 @@ end
 
 class Message < ActiveRecord::Base
 	validates :content, presence: true, length: { minimum: 5 } 
-	validates :autor, presence: true 
+	validates :autor, presence: true
+	validates :post_id, presence: true 	
 end
 
 before do
@@ -72,7 +73,8 @@ get '/comm/:post_id' do	# ---------------- / C O M / ... -----------------------
 	# эти две строки преобразованы в одну в методе ost '/comm/:post_id' см ниже (м1)
 
 	# ВАРИАНИ_1 Нагрузка на сервер = получаем только нужные записи
-	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
+	@all_coments_to_main_post = Message.where("post_id = ?", 
+		params[:post_id]).reverse_order
 	# и в браузере останется только вывести их все в таблицу
 
 	erb :comments
@@ -80,7 +82,8 @@ end
 
 post '/comm/:post_id' do	# ---------------- / C O M / ... ---------------POST-----
 
-	@main_post = Postme.find(params[:post_id])  # Об этом написано выше (м1)
+	@main_post = Postme.find(params[:post_id])
+									# Об этом написано выше (м1)
 
 	@mes = Message.new params[:message]
 	@mes.post_id = @main_post.id
@@ -91,7 +94,7 @@ post '/comm/:post_id' do	# ---------------- / C O M / ... ---------------POST---
 	end 
 
 	# ВАРИАНТ_1 Нагрузка на сервер = получаем только нужные записи
-	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id])
+	@all_coments_to_main_post = Message.where("post_id = ?", params[:post_id]).reverse_order
 	# и в браузере останется только вывести их все в таблицу
 
 	erb :comments	
