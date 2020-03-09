@@ -17,6 +17,11 @@ class Message < ActiveRecord::Base
 	validates :post_id, presence: true 	
 end
 
+class Letter < ActiveRecord::Base
+	validates :content, presence: true, length: { minimum: 5 } 
+	validates :autor, presence: true	
+end
+
 before do
 	@post_all = Postme.order(:id).reverse_order
 end
@@ -85,7 +90,7 @@ post '/comm/:post_id' do	# ---------------- / C O M / ... ---------------POST---
 	@main_post = Postme.find(params[:post_id])
 									# Об этом написано выше (м1)
 
-	@mes = Message.new params[:message]	# Создаём объект, дааные внести с формы
+	@mes = Message.new params[:message]	# Создаём объект, даные внести с формы
 	@mes.post_id = @main_post.id 	# Добавляем недостающий параметр post_id из
 	# сообщения, которое выбрано для создания кометария к нему 
 
@@ -107,5 +112,13 @@ get '/contacts' do	# ---------------- / C O N T A C T S ------------------------
 end
 
 post '/contacts' do	# ---------------- / C O N T A C T S -----------------POST---
+	@let = Letter.new params[:letter]	# Создаём объект, даные внести с формы
+	@let.old    = '0'		# Письмо не старое
+	@let.ansver = '0'		# Ответа на него небыло
+	if !@let.save		# Внести данные в БД с проверкой (validates) см. в верху
+ 		@error = @let.errors.full_messages.first
+		# если валидация даёт ошибку - сосздать переменную ошибки и внести в неё
+		# первое сообщение из всех имеющихся после валидации.	    
+	end 
     erb "<b>OPR:</b> It is page of /contacts for runing post-method"
 end

@@ -3,20 +3,19 @@
 
   	<div>
   		<label>Здесь можно ввести ваше сообщение для меня</label>
-		<textarea name="" class="form-control" rows="3"></textarea>
+		<textarea name="letter[content]" class="form-control" rows="3" placeholder="Место для сообщения ..."></textarea>
 	</div>
 
   	<div class="form-group">
     	<label for="exampleInputEmail1">Укажите Ваш Email для ответа </label>
-    	<input name="pos_mes" type="email" class="form-control" id="exampleInputEmail1" placeholder="email@domen.domen">
+    	<input name="letter[email]" type="email" class="form-control" id="exampleInputEmail1" placeholder="email@domen.domen">
   	</div>
-  
+
   	<div class="form-group">
-    	<label for="exampleInputFile">Прикрепите файл</label>
-    	<input name="" type="file" id="exampleInputFile">
-    	<p class="help-block">Здесь Вы можете прикрепить ОДИН файл.</p>
+    	<label for="exampleInputName2">Ваше имя:</label>
+    	<input name="letter[autor]" type="text" class="form-control" id="exampleInputName2" placeholder="Михаил Михаилович">
   	</div>
-  
+  	
   	<button type="submit" class="btn btn-default">Submit</button>
 
 </form>

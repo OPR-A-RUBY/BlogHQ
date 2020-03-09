@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_112836) do
+ActiveRecord::Schema.define(version: 2020_03_09_175113) do
+
+  create_table "Letters", force: :cascade do |t|
+    t.text "content"
+    t.text "autor"
+    t.text "email"
+    t.text "old"
+    t.text "ansver"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "Messages", force: :cascade do |t|
     t.text "content"
