@@ -1,7 +1,7 @@
 #encoding: utf-8
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require 'sinatra/activerecord'
 
 set :database, 'sqlite3:posts.db'
@@ -45,8 +45,8 @@ get '/posts' do		# ---------------- / P O S T S ------------------------------
 end
 
 get '/newpost' do	# ---------------- / N E W P O S T S ------------------------
-	@pos = Postme.new
-	erb :newpost
+	@pos = Postme.new 	# Метод .new принимает ХЕШ { ... } на входе. См ниже.
+ 	erb :newpost
 end
 
 post '/newpost' do	# ---------------- / N E W P O S T S ------------------POST--
